@@ -32,7 +32,7 @@ public class Lox {
             throw new IOException($"The file \"{path}\" does not exist!");
 
         string lines = File.ReadAllText(Path.GetFullPath(path));
-        // Run(lines);
+        Run(lines);
 
         // There was an error!
         if (hadError)
@@ -46,7 +46,7 @@ public class Lox {
             string? line = Console.ReadLine();
             if (line == null || line == "")
                 break;
-            // Run(line);
+            Run(line);
             hadError = false;
         }
     }
@@ -58,7 +58,7 @@ public class Lox {
 
         // For Now, just Print the tokens
         foreach (var t in tokens) {
-            Console.WriteLine(t);
+            Console.WriteLine(t.ToString());
         }
 
     }

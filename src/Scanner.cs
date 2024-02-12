@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-
 
 // PROJECT SPECIFIC USINGS
 using static Gammer0909.LoxSharp.TokenType;
@@ -19,10 +17,35 @@ public class Scanner {
     private int current = 0;
     private int line = 1;
 
+    private static readonly Dictionary<string, TokenType> keywords;
+
     #endregion Members
 
     public Scanner(string source) {
         this.source = source;
+    }
+
+    static Scanner() {
+        keywords = new()
+        {
+            { "and", AND },
+            { "class", CLASS },
+            { "else", ELSE },
+            { "false", FALSE },
+            { "for", FOR },
+            { "fun", FUN },
+            { "if", IF },
+            { "nil", NIL },
+            { "or", OR },
+            { "print", PRINT },
+            { "give", RETURN },
+            { "super", SUPER },
+            { "this", THIS },
+            { "true", TRUE },
+            { "var", VAR },
+            { "while", WHILE }
+        };
+
     }
 
     public List<Token> ScanTokens() {
@@ -34,7 +57,7 @@ public class Scanner {
         }
 
         tokens.Add(new Token(EOF, "", null, line));
-
+        return tokens;
     }
 
     private void ScanToken() {
@@ -66,12 +89,26 @@ public class Scanner {
             case '/':
                 if (Match('/')) {
                     // Comments go to the end of the line!
-                    while (Peek() != '\n' && !IsAtEnd())
+                    while (Peek() != '\n' && !IsAtEnd()) {
                         Advance();
-                } else {
+                    }
+                } else if (Match('*')) {
+                    // These comments go until a */, so we have to wait till we find an asterisk
+                    while (Peek() != '*' && PeekNext() != '/' && !IsAtEnd()) {
+                        if (Peek() == '\n') {
+                            line++;
+                        }
+                        Advance();
+                    }
+                    // Consume the * and the /
+                    Advance();
+                    Advance();
+                } 
+                else {
                     AddToken(SLASH);
                 }
                 break;
+
             case ' ':
             case '\r':
             case '\t':
@@ -87,6 +124,8 @@ public class Scanner {
             default:
                 if (IsDigit(c)) {
                     Number();
+                } else if (IsAlpha(c)) {
+                    Identifier();
                 } else {
                     Lox.Error(line, $"Unexpected character: {c}");
                 }
@@ -94,11 +133,21 @@ public class Scanner {
         }
     }
 
+    private void Identifier() {
+        while (IsAlphaNumeric(Peek()))
+            Advance();
+        
+        string text = source.Substring(start, current - start);
+        // Basically, if the text exists in the keywords Dictionary, then it's a keyword, else: it's a user defined name
+        TokenType type = keywords.ContainsKey(text) ? keywords[text] : IDENTIFIER;
+        AddToken(type);
+    }
+
     public void Number() {
         while (IsDigit(Peek()))
             Advance();
 
-        if (Peek() == '.' ** IsDigit(PeekNext())) {
+        if (Peek() == '.' && IsDigit(PeekNext())) {
             Advance();
         
             while (IsDigit(Peek()))
@@ -147,9 +196,18 @@ public class Scanner {
     }
 
     private char PeekNext() {
-        return ' ';
+        if (current + 1 >= source.Length)
+            return '\0';
+        return source[current + 1];
     }
 
+    private bool IsAlpha(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+    }
+
+    private bool IsAlphaNumeric(char c) {
+        return IsAlpha(c) || IsDigit(c);
+    }
 
     public bool IsDigit(char c) {
         return c >= '0' && c <= '9';
