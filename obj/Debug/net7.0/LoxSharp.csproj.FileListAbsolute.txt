@@ -1,0 +1,15 @@
+/Users/kalliegarzon/Desktop/LoxSharp/bin/Debug/net7.0/LoxSharp
+/Users/kalliegarzon/Desktop/LoxSharp/bin/Debug/net7.0/LoxSharp.deps.json
+/Users/kalliegarzon/Desktop/LoxSharp/bin/Debug/net7.0/LoxSharp.runtimeconfig.json
+/Users/kalliegarzon/Desktop/LoxSharp/bin/Debug/net7.0/LoxSharp.dll
+/Users/kalliegarzon/Desktop/LoxSharp/bin/Debug/net7.0/LoxSharp.pdb
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.csproj.AssemblyReference.cache
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.AssemblyInfoInputs.cache
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.AssemblyInfo.cs
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.csproj.CoreCompileInputs.cache
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.dll
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/refint/LoxSharp.dll
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.pdb
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/LoxSharp.genruntimeconfig.cache
+/Users/kalliegarzon/Desktop/LoxSharp/obj/Debug/net7.0/ref/LoxSharp.dll
